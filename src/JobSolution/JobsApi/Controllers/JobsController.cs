@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobsApi.Controllers;
 
@@ -33,12 +34,28 @@ public class JobsController : ControllerBase
     {
         JobItemModel? response = await _jobManager.GetJobBySlugAsync(slug);
 
-        if(response is null)
+        if (response is null)
         {
             return NotFound();
-        } else
+        }
+        else
         {
             return Ok(response);
+        }
+    }
+    
+    [HttpHead("{slug}")]
+    public async Task<ActionResult> CheckForJobBySlugAsync(string slug)
+    {
+        JobItemModel? response = await _jobManager.GetJobBySlugAsync(slug);
+
+        if (response is null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok();
         }
     }
 }
