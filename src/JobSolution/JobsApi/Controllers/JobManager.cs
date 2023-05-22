@@ -48,7 +48,9 @@ public class JobManager
     {
         // Here we will have to map from JobEntity -> JobItemModel
         using var session = _documentStore.LightweightSession();
-        var jobs = await session.Query<JobEntity>().Where(j => j.IsRetired == false).Select(job => new JobItemModel
+        var jobs = await session.Query<JobEntity>()
+            .Where(j => j.IsRetired == false)
+            .Select(job => new JobItemModel
         {
             Title = job.Title,
             Id = job.Slug,
