@@ -14,7 +14,7 @@ A job listing is for an active (non-retired) Job from the Jobs API.
     - Job is unlisted as a result of the Job being retired.
 
 ```http
-POST http://localhost:1338/developer-1/openings
+POST http://localhost:1338/job-listings-rpc/developer-1/openings
 Content-Type: application/json
 
 {
