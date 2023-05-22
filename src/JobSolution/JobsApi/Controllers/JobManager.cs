@@ -40,6 +40,8 @@ public class JobManager
             Title = jobToSave.Title,
             Description = jobToSave.Description,
         };
+        // Write that event out  *somewhere*.
+
         return response;
 
     }
