@@ -7,10 +7,18 @@ namespace JobsApi.Controllers;
 public class JobsController : ControllerBase
 {
 
+    private readonly JobManager _jobManager;
+
+    public JobsController(JobManager jobManager)
+    {
+        _jobManager = jobManager;
+    }
+
     [HttpPost]
     public async Task<ActionResult> CreateJob([FromBody] JobCreateItem request)
     {
-        return StatusCode(201, request);
+        JobItemModel response = await _jobManager.GetJobForAsync(request);
+        return StatusCode(201, response);
     }
 
     [HttpGet]
