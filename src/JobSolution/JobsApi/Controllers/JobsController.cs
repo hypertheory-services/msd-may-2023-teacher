@@ -27,4 +27,18 @@ public class JobsController : ControllerBase
         CollectionResponse<JobItemModel> response = await _jobManager.GetAllCurrentJobsAsync();
         return Ok(response);
     }
+
+    [HttpGet("{slug}")]
+    public async Task<ActionResult> GetJobFromSlug(string slug)
+    {
+        JobItemModel? response = await _jobManager.GetJobBySlugAsync(slug);
+
+        if(response is null)
+        {
+            return NotFound();
+        } else
+        {
+            return Ok(response);
+        }
+    }
 }

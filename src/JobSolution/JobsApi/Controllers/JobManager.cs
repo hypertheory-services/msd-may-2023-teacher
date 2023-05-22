@@ -59,4 +59,18 @@ public class JobManager
 
         return new CollectionResponse<JobItemModel> { Data = jobs.ToList() };
     }
+
+    public async Task<JobItemModel?> GetJobBySlugAsync(string slug)
+    {
+        using var session = _documentStore.LightweightSession();
+        var job = await session.Query<JobEntity>()
+            .Where(j => j.IsRetired == false && j.Slug == slug)
+            .Select(job => new JobItemModel
+            {
+                Title = job.Title,
+                Id = job.Slug,
+                Description = job.Description,
+            }).SingleOrDefaultAsync();
+        return job;
+    }
 }
