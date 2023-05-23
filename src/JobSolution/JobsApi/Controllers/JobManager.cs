@@ -53,11 +53,11 @@ public class JobManager
         var jobs = await session.Query<JobEntity>()
             .Where(j => j.IsRetired == false)
             .Select(job => new JobItemModel
-        {
-            Title = job.Title,
-            Id = job.Slug,
-            Description = job.Description,
-        }).ToListAsync();
+            {
+                Title = job.Title,
+                Id = job.Slug,
+                Description = job.Description,
+            }).ToListAsync();
 
         return new CollectionResponse<JobItemModel> { Data = jobs.ToList() };
     }
@@ -74,5 +74,14 @@ public class JobManager
                 Description = job.Description,
             }).SingleOrDefaultAsync();
         return job;
+    }
+
+    public async Task<bool> CheckForJobAsync(string slug)
+    {
+        using var session = _documentStore.LightweightSession();
+        return await session.Query<JobEntity>()
+             .Where(j => j.IsRetired == false && j.Slug == slug)
+             .AnyAsync();
+
     }
 }
