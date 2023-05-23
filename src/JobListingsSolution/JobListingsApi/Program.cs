@@ -32,7 +32,7 @@ builder.Services.AddMarten(options =>
 
 builder.Services.AddCap(options =>
 {
-    options.UseKafka(kafkaConnectionString);
+    options.UseKafka(kafkaConnectionString); // message broker
     options.UsePostgreSql(dataConnectionString); // it uses an "outbox" pattern.
     options.UseDashboard(); // just for class, but I think it's cool. 
 });
