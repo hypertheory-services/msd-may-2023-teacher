@@ -1,4 +1,6 @@
-﻿using Marten;
+﻿using DotNetCore.CAP;
+using Marten;
+using DomainEvents =  MessageContracts.JobsApi;
 using SlugGenerators;
 
 namespace JobsApi.Controllers;
@@ -7,11 +9,13 @@ public class JobManager
 {
     private readonly SlugGenerator _slugGenerator;
     private readonly IDocumentStore _documentStore;
+    private readonly ICapPublisher _publisher;
 
-    public JobManager(SlugGenerator slugGenerator, IDocumentStore documentStore)
+    public JobManager(SlugGenerator slugGenerator, IDocumentStore documentStore, ICapPublisher publisher)
     {
         _slugGenerator = slugGenerator;
         _documentStore = documentStore;
+        _publisher = publisher;
     }
 
     public async Task<JobItemModel> CreateJobAsync(JobCreateItem request)
@@ -41,7 +45,13 @@ public class JobManager
             Description = jobToSave.Description,
         };
         // Write that event out  *somewhere*.
-
+        var domainEvent = new DomainEvents.JobCreated
+        {
+            Id = response.Id,
+            Title = response.Title,
+            Description= response.Description,
+        };
+        await _publisher.PublishAsync(DomainEvents.JobCreated.MessageId, domainEvent);
         return response;
 
     }
