@@ -16,7 +16,7 @@ public class JobListingsController : ControllerBase
     [HttpPost("/job-listings/{slug}/openings")]
     public async Task<ActionResult> AddJobListing([FromRoute] string slug, [FromBody] JobListingCreateModel request)
     {
-        var savedJob = await _documentSession.Query<JobModel>().Where(job => job.Id == slug).FirstOrDefaultAsync();
+        var savedJob = await _documentSession.Query<JobModel>().Where(job => job.Id == slug).SingleOrDefaultAsync();
 
         if(savedJob != null)
         {

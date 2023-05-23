@@ -33,7 +33,7 @@ public class MessageSubscriberController : ControllerBase
             Id = request.Id,
             Title = request.Title
         };
-        _session.Store(job);
+        _session.Store(job); // "Upsert" - if it already exists, replace it, otherwise add it.
         await _session.SaveChangesAsync();
         //       - talk about mutable data from the event stream
         //          our example will be retiring a job. but there is more.
