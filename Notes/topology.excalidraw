@@ -862,6 +862,34 @@
       "endBinding": null,
       "startArrowhead": null,
       "endArrowhead": null
+    },
+    {
+      "id": "9EzO1RCyyW6ddVcBlgy5B",
+      "type": "rectangle",
+      "x": 1091.515625,
+      "y": 645,
+      "width": 246.25,
+      "height": 248.75,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "seed": 2031182315,
+      "version": 24,
+      "versionNonce": 491084645,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1684945844911,
+      "link": null,
+      "locked": false
     }
   ],
   "appState": {
