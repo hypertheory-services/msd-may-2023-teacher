@@ -17,3 +17,9 @@ public record Salaryrange
     public decimal Min { get; set; }
     public decimal Max { get; set; }
 }
+
+public record JobListingFilled
+{
+    public static readonly string MessageId = "JobListings.JobListingFilled";
+    public string JobListingId { get; set; } = "";
+}

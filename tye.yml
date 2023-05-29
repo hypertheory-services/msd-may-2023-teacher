@@ -15,3 +15,6 @@ services:
     project: ./src/hr/AclSolution/Acl/Acl.csproj
   - name: hr-hiring
     project: ./src/hr/HiringSolution/HiringApi/HiringApi.csproj
+  - name: job-listings-acl
+    project: ./src/JobListingAcl/JobListingAcl/JobListingAcl.csproj
+    

@@ -1,6 +1,7 @@
 ﻿using DotNetCore.CAP;
 using JobApplicationMvc.Areas.Identity.Data;
 using JobApplicationMvc.Data;
+using Microsoft.EntityFrameworkCore;
 using DomainEvents = MessageContracts.JobListingsApi;
 
 namespace JobApplicationMvc;
@@ -29,5 +30,22 @@ public class JobOpeningsSubscriber : ICapSubscribe
         };
         _context.JobOpenings.Add(jobOpening);
         await _context.SaveChangesAsync();
+    }
+
+    [CapSubscribe("JobListings.JobListingFilled")]
+    public async Task JobFilledSoRemoveAsync(DomainEvents.JobListingFilled message)
+    {
+        var jobOpening = await _context.JobOpenings
+            .Where(j => j.OpeningId == Guid.Parse(message.JobListingId))
+            .SingleOrDefaultAsync();
+
+        if (jobOpening == null)
+        {
+            return;
+        } else
+        {
+            _context.JobOpenings.Remove(jobOpening);
+            await _context.SaveChangesAsync(); 
+        }
     }
 }

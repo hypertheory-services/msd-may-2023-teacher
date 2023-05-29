@@ -8,11 +8,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var kafkaConnectionString = builder.Configuration.GetConnectionString("kafka") ?? throw new ArgumentNullException("Need a kafka broker");
-
+var dataConnectionString = builder.Configuration.GetConnectionString("data") ?? throw new ArgumentNullException("Need a data connection string");
 builder.Services.AddCap(options =>
 {
     options.UseKafka(kafkaConnectionString); // message broker
-    options.UseInMemoryStorage();
+    options.UsePostgreSql(dataConnectionString);
     options.UseDashboard(); // just for class, but I think it's cool. 
 });
 
