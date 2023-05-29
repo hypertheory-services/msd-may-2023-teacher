@@ -2,6 +2,8 @@
 
 Hey Everyone!
 
+You can watch a little video of this here: https://clipchamp.com/watch/WiR7pFoSKo4
+
 So that little issue I was having with the header at the end of the class... well, remember I took that shortcut and used the `InMemory` store for the events on the HR.Acl project? It's broken. I switched it over to use Postgres and it worked like a champ.
 
 This is a pretty good "Final enough for the end of class" version, if you want to copy this repo.
